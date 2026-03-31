@@ -99,4 +99,8 @@ Start typing in cells or enter formulas using the formula bar.
 
 🔗 Links
 
+<<<<<<< HEAD
 Deployed Link: https://1dity1.github.io/sheetify/
+=======
+Deployed Link: https://1dity1.github.io/sheetify/
+>>>>>>> 391e901489efc1ca19170844cecb2458e1aa85ca
