@@ -1,107 +1,102 @@
-# Excel Clone  
+Sheetify
+A lightweight spreadsheet app built from scratch using HTML, CSS, and JavaScript. You can edit cells, write formulas, style your data, and watch dependent cells update automatically — all in the browser, no installations needed.
 
-A simple spreadsheet application built using HTML, CSS, and JavaScript.  
-It supports editing cells, writing formulas (like `=A1 + B2`), applying styles (bold, italic, underline, alignment, colors), and automatically updating dependent cells (including transitive dependencies).  
+Features
+Cell Editing
 
----
+Click any cell and start typing right away.
+If a cell had a formula before, typing over it clears the formula and makes the cell independent.
 
-## Features  
+Formulas
 
-### Cell Editing  
-- Directly type values into cells.  
-- If a cell already had a formula, editing clears it and makes the cell independent.  
+Write formulas like:
 
-### Formulas  
-- Supports formulas like:  
-  - `A1 + B1`  
-  - `A1 * 2`  
-  - `( A1 + B1 ) * 3`  
-- References other cells using their Excel-style address (`A1`, `B2`, etc.).  
-- Uses `eval()` to calculate arithmetic expressions once references are replaced with values.  
+A1 + B1
+A1 * 2
+( A1 + B1 ) * 3
 
-### Styling  
-- Each cell supports text formatting and styles:  
-  - Font family (for example: Arial)  
-  - Font size  
-  - Bold, italic, underline  
-  - Horizontal alignment (left, center, right)  
-  - Text color  
-  - Background color  
 
-### Dependency Tracking  
-- Each cell keeps track of its children (cells depending on it).  
-- When a cell changes:  
-  - Its value is updated.  
-  - All dependent cells are recalculated recursively (supports transitive updates).  
-- Example:  
-  - `B1 = A1 + 5`  
-  - `C1 = B1 * 2`  
-  - Updating `A1` → updates `B1` → updates `C1`.  
+Cells are referenced using standard spreadsheet notation (A1, B2, etc.).
+Arithmetic expressions are evaluated once cell references are substituted with their values.
 
-### Formula Removal  
-- If a cell with a formula is edited directly, its formula is removed.  
-- Dependencies are cleared from parent cells.  
+Styling
 
----
+Each cell can be styled independently:
 
-## 🛠️ Tech Stack  
+Font family (e.g. Arial)
+Font size
+Bold, italic, underline
+Horizontal alignment (left, center, right)
+Text color
+Background color
 
-- **Frontend:** HTML, CSS  
-- **Logic:** JavaScript (Vanilla, no frameworks)  
-- **Data Model:**  
-  Each cell stores the following information:  
-  - Text color  
-  - Background color  
-  - Font family  
-  - Font size  
-  - Horizontal alignment  
-  - Bold, italic, underline states  
-  - Value of the cell  
-  - Formula (if any)  
-  - List of dependent children cells  
 
----
 
-## ⚡ How It Works  
+Dependency Tracking
 
-### Cell Input (Blur Event)  
-- When a user types in a cell and leaves it:  
-  - If the value is the same → nothing changes.  
-  - If a formula existed → it is removed.  
-- The cell’s value is updated, and all dependent children update recursively.  
+Cells keep track of which other cells depend on them.
+When a cell's value changes, all dependent cells recalculate automatically — including chains:
 
-### Formula Input (Enter Key)  
-- User enters a formula in the formula bar and presses Enter.  
-- Formula is parsed:  
-  - Cell references (`A1`, `B2`, …) are replaced with values.  
-  - Expression is evaluated using `eval`.  
-- Dependencies are registered in parent cells.  
-- Value is updated and propagated.  
+B1 = A1 + 5
+C1 = B1 * 2
+Change A1 → B1 updates → C1 updates.
 
-### Update Propagation  
-- `updateUI()` updates the current cell’s value in both the UI and the database.  
-- Recursively updates all child cells that depend on it.  
 
----
 
-## ⚠️ Current Limitations
+Formula Removal
 
-- Only supports basic arithmetic: `+`, `-`, `*`, `/`, `()`.  
-- No built-in Excel functions (`SUM`, `AVERAGE`, etc.).  
-- No support for ranges (like `A1:A5`).  
-- No circular dependency detection (e.g., `A1 = B1 + 1` and `B1 = A1 + 1` will loop).  
+Typing directly into a cell that has a formula removes that formula.
+All dependency links from parent cells are cleared automatically.
 
----
 
-## ▶️ How to Run
+🛠️ Tech Stack
 
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/username/Excel_Clone.git
-   ```
+Frontend: HTML, CSS
+Logic: Vanilla JavaScript (no frameworks)
+Data Model: Each cell stores — text color, background color, font family, font size, alignment, bold/italic/underline states, value, formula, and a list of dependent children.
+
+
+⚡ How It Works
+Editing a Cell
+
+When you leave a cell after typing:
+
+If the value didn't change → nothing happens.
+If a formula existed → it gets removed.
+
+
+The new value is saved and all dependent cells update recursively.
+
+Entering a Formula
+
+Type a formula in the formula bar and press Enter.
+Cell references are replaced with their current values and the expression is calculated.
+Dependencies are registered so future changes propagate correctly.
+
+Update Propagation
+
+When a cell updates, it refreshes its value in both the UI and the data model.
+All child cells that depend on it are then recalculated in the same way, down the chain.
+
+
+⚠️ Current Limitations
+
+Only basic arithmetic is supported: +, -, *, /, ().
+No built-in functions like SUM or AVERAGE yet.
+Cell ranges (like A1:A5) aren't supported.
+No circular dependency detection — avoid formulas that reference each other or it'll loop.
+
+
+▶️ How to Run
+
+Clone the repository:
+
+bash   git clone https://github.com/1dity1/sheetify.git
 
 Open index.html in any browser.
+Start typing in cells or enter formulas using the formula bar.
 
-Start editing cells or entering formulas in the formula bar.
+
 🔗 Links
-  Deployed Link: https://jayant1008.github.io/Excel_Clone/
+
+Deployed Link: https://1dity1.github.io/sheetify/
